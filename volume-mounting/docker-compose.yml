@@ -4,6 +4,7 @@ services:
     image: nginx
     volumes:
       - vol1:/vol1
+      - vol1:/vol2:ro
 
 volumes:
   vol1:
