@@ -1,0 +1,23 @@
+version: '3'
+services:
+  service1:
+    image: nasoym/bss_docker
+    networks:
+      - foo
+      - internal
+    external_links:
+      - foo_bss_docker
+    ports:
+      - ${port_prefix}80:8080
+  service2:
+    image: nasoym/bss_docker
+    networks:
+      - internal
+    ports:
+      - ${port_prefix}90:8080
+networks:
+  internal:
+  foo:
+    external:
+      name: foo
+
