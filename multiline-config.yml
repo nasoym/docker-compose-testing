@@ -1,0 +1,36 @@
+version: '3'
+services:
+
+  foo:
+    image: alpine
+    tty: true
+    entrypoint: |
+      /bin/sh -c "
+      printf 'global
+        log haproxy_logs:514 local0
+        log haproxy_logs:514 local1 notice
+
+      defaults
+        mode http
+        option httplog
+        option dontlognull
+
+      frontend frontend
+        bind *:80
+        log global
+        default_backend workers
+
+      backend workers
+        server worker1 worker1:8080
+        server worker2 worker2:8080
+        server worker3 worker3:8080
+      ' > /foo;
+      echo ----------------cat--------------;
+      cat /foo;
+      "
+    # entrypoint: /bin/sh -c "
+    #     printf \"foo\" > /foo;
+    #     cat /foo;
+    #     "
+
+
