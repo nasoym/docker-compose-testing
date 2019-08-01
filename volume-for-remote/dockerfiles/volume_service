@@ -1,0 +1,6 @@
+FROM alpine
+
+MAINTAINER Hypoport
+
+COPY files/foo /volume_service/
+COPY files/bar /volume_service/

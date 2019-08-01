@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+  foo:
+    image: alpine
+    volumes:
+      - volume_service:/hello
+    command: /bin/sh -c "cat /hello/foo"
+
+  bar:
+    image: alpine
+    volumes:
+      - volume_service:/hello
+    command: /bin/sh -c "cat /hello/bar"
+
+  volume_service:
+    image: volume_service:latest
+    build:
+      context: .
+      dockerfile: ./dockerfiles/volume_service
+    volumes:
+      - volume_service:/volume_service
+
+volumes:
+  volume_service:
+    driver: local 
+
