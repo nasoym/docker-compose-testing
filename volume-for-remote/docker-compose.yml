@@ -11,7 +11,8 @@ services:
     image: alpine
     volumes:
       - volume_service:/hello
-    command: /bin/sh -c "cat /hello/bar"
+      - web_app:/bla
+    command: /bin/sh -c "cat /hello/bar; ls -la /bla"
 
   volume_service:
     image: volume_service:latest
@@ -24,4 +25,9 @@ services:
 volumes:
   volume_service:
     driver: local 
+  web_app:
+    driver: local
+    driver_opts:
+      type: bind
+      device: ${PWD}/files
 
